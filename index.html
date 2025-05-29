@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -20,7 +19,7 @@
       font-size: 24px;
       font-weight: bold;
       user-select: none;
-      animation: fall 5s linear infinite;
+      animation: fall 6s linear infinite;
       text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff99cc, 0 0 20px #ffcccc;
     }
 
@@ -67,21 +66,28 @@
   </audio>
 
   <script>
-    const words = ["Yêu em", "💖", "Tôi yêu em", "❤️", "Nhớ em", "Mãi mãi"];
-    
+    const words = [
+      "Yêu em", "💖", "Tôi yêu em", "❤️", "Nhớ em", "Mãi mãi", 
+      "Anh sẽ luôn bên em", "Không ai bằng em", "Anh chỉ cần em", 
+      "Em là tất cả", "Em là mặt trời của anh", "Mỗi ngày đều vì em", 
+      "Bình yên là có em", "Anh không thể thiếu em", "Em là định mệnh của anh", 
+      "Mỗi nhịp tim là vì em", "Tình yêu này là thật", "Mãi yêu em", 
+      "Bên em là hạnh phúc", "Chỉ yêu một mình em", "Anh nhớ em nhiều lắm", 
+      "Anh yêu em từ tận trái tim", "Em là người duy nhất"
+    ];
+
     function createFallingText() {
       const text = document.createElement("div");
       text.classList.add("falling-text");
       text.innerText = words[Math.floor(Math.random() * words.length)];
       text.style.left = Math.random() * 100 + "vw";
-      text.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      text.style.animationDuration = (Math.random() * 2 + 4) + "s";
       document.body.appendChild(text);
-      setTimeout(() => text.remove(), 6000);
+      setTimeout(() => text.remove(), 7000);
     }
 
-    setInterval(createFallingText, 300);
+    setInterval(createFallingText, 200);
 
-    // Phát nhạc sau khi click (do trình duyệt chặn autoplay)
     const audio = document.getElementById("bg-audio");
     window.addEventListener('click', () => {
       if (audio) {
@@ -94,3 +100,5 @@
 
 </body>
 </html>
+
+
