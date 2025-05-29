@@ -2,14 +2,15 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Yêu em ❤️</title>
+  <meta charset="UTF-8" />
+  <title>Yêu Em ❤️</title>
   <style>
     body {
       margin: 0;
       background-color: #000;
       overflow: hidden;
       font-family: 'Arial', sans-serif;
+      cursor: pointer;
     }
 
     .falling-text {
@@ -17,53 +18,78 @@
       top: -50px;
       color: #ff99cc;
       font-size: 24px;
+      font-weight: bold;
       user-select: none;
       animation: fall 5s linear infinite;
+      text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff99cc, 0 0 20px #ffcccc;
     }
 
     @keyframes fall {
       0% {
         top: -50px;
         opacity: 0;
+        transform: scale(1);
       }
       50% {
         opacity: 1;
+        transform: scale(1.2);
       }
       100% {
         top: 100%;
         opacity: 0;
+        transform: scale(1);
       }
     }
 
-    audio {
+    .hint {
       position: fixed;
-      bottom: 20px;
-      left: 20px;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+      opacity: 0.6;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
 
+  <div class="hint">🌸 Chạm vào màn hình để bắt đầu nhạc 🌸</div>
+
   <!-- Nhạc nền -->
-  <audio controls autoplay loop>
-    <source src="snaptik.vn_0e2b7.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ âm thanh.
+  <audio id="bg-audio" autoplay loop>
+    <source src="snaptik.vn_0e2b7.mp3" type="audio/mpeg" />
+    Trình duyệt không hỗ trợ âm thanh.
   </audio>
 
-  <!-- Tạo nhiều chữ rơi -->
   <script>
-    const words = ["Yêu em", "❤️", "Nhớ em", "💖", "Mãi mãi"];
+    const words = ["Yêu em", "💖", "Tôi yêu em", "❤️", "Nhớ em", "Mãi mãi"];
+    
     function createFallingText() {
       const text = document.createElement("div");
       text.classList.add("falling-text");
+      text.innerText = words[Math.floor(Math.random() * words.length)];
       text.style.left = Math.random() * 100 + "vw";
       text.style.animationDuration = (Math.random() * 2 + 3) + "s";
-      text.innerText = words[Math.floor(Math.random() * words.length)];
       document.body.appendChild(text);
-      setTimeout(() => text.remove(), 5000);
+      setTimeout(() => text.remove(), 6000);
     }
 
     setInterval(createFallingText, 300);
+
+    // Phát nhạc sau khi click (do trình duyệt chặn autoplay)
+    const audio = document.getElementById("bg-audio");
+    window.addEventListener('click', () => {
+      if (audio) {
+        audio.play();
+        const hint = document.querySelector('.hint');
+        if (hint) hint.style.display = 'none';
+      }
+    });
   </script>
 
 </body>
