@@ -2,49 +2,51 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Chữ Rơi To Nhiều Câu + Nhạc</title>
+  <title>Yêu Em ❤️</title>
   <style>
     body {
       margin: 0;
-      background: black;
+      background-color: #000;
       overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Arial', sans-serif;
+      cursor: pointer;
     }
 
-    .chu-roi {
+    .falling-text {
       position: absolute;
-      top: -100px;
-      font-size: 48px;
+      top: -50px;
+      color: #ff99cc;
+      font-size: 24px;
       font-weight: bold;
-      color: #ff66cc;
-      text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff66cc, 0 0 30px white;
-      animation: roi 6s linear forwards;
-      pointer-events: none;
-      white-space: nowrap;
+      user-select: none;
+      animation: fall 6s linear infinite;
+      text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff99cc, 0 0 20px #ffcccc;
     }
 
-    @keyframes roi {
+    @keyframes fall {
       0% {
-        transform: translateY(-100px) rotate(0deg);
+        top: -50px;
         opacity: 0;
+        transform: scale(1);
       }
-      10% {
+      50% {
         opacity: 1;
+        transform: scale(1.2);
       }
       100% {
-        transform: translateY(120vh) rotate(360deg);
+        top: 100%;
         opacity: 0;
+        transform: scale(1);
       }
     }
 
     .hint {
-      position: absolute;
+      position: fixed;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
       color: white;
       font-size: 18px;
-      text-align: center;
       opacity: 0.6;
     }
 
@@ -55,51 +57,46 @@
 </head>
 <body>
 
-<div class="hint">🎵 Chạm vào màn hình để phát nhạc 🎵</div>
+  <div class="hint">🌸 Chạm vào màn hình để bắt đầu nhạc 🌸</div>
 
-<audio id="bg-music" autoplay loop>
-  <source src="snaptik.vn_0e2b7.mp3" type="audio/mpeg">
-  Trình duyệt của bạn không hỗ trợ phát nhạc.
-</audio>
+  <!-- Nhạc nền -->
+  <audio id="bg-audio" autoplay loop>
+    <source src="snaptik.vn_0e2b7.mp3" type="audio/mpeg" />
+    Trình duyệt không hỗ trợ âm thanh.
+  </audio>
 
-<script>
-  const cauNoi = [
-    "Anh yêu em nhiều lắm 💗",
-    "Chỉ cần em hạnh phúc",
-    "Tình yêu này là mãi mãi",
-    "Luôn bên em mỗi ngày",
-    "Không ai thay thế được em",
-    "Anh mãi ở đây",
-    "Em là lý do anh mỉm cười",
-    "Yêu em hơn hôm qua",
-    "Trái tim này là của em",
-    "Không bao giờ rời xa",
-    "Mỗi dòng chữ là một nhịp tim",
-    "Mỗi phút giây đều nhớ đến em",
-    "Anh là của em – trọn đời",
-    "Em là điều tuyệt vời nhất",
-    "Anh sẽ không để em rơi nước mắt"
-  ];
+  <script>
+    const words = [
+      "Yêu em", "💖", "Tôi yêu em", "❤️", "Nhớ em", "Mãi mãi", 
+      "Anh sẽ luôn bên em", "Không ai bằng em", "Anh chỉ cần em", 
+      "Em là tất cả", "Em là mặt trời của anh", "Mỗi ngày đều vì em", 
+      "Bình yên là có em", "Anh không thể thiếu em", "Em là định mệnh của anh", 
+      "Mỗi nhịp tim là vì em", "Tình yêu này là thật", "Mãi yêu em", 
+      "Bên em là hạnh phúc", "Chỉ yêu một mình em", "Anh nhớ em nhiều lắm", 
+      "Anh yêu em từ tận trái tim", "Em là người duy nhất"
+    ];
 
-  function taoChuRoi() {
-    const chu = document.createElement('div');
-    chu.className = 'chu-roi';
-    chu.textContent = cauNoi[Math.floor(Math.random() * cauNoi.length)];
-    chu.style.left = Math.random() * window.innerWidth + 'px';
-    chu.style.animationDuration = (Math.random() * 3 + 4) + 's';
-    document.body.appendChild(chu);
-    setTimeout(() => chu.remove(), 7000);
-  }
+    function createFallingText() {
+      const text = document.createElement("div");
+      text.classList.add("falling-text");
+      text.innerText = words[Math.floor(Math.random() * words.length)];
+      text.style.left = Math.random() * 100 + "vw";
+      text.style.animationDuration = (Math.random() * 2 + 4) + "s";
+      document.body.appendChild(text);
+      setTimeout(() => text.remove(), 7000);
+    }
 
-  setInterval(taoChuRoi, 200);
+    setInterval(createFallingText, 200);
 
-  const audio = document.getElementById("bg-music");
-  window.addEventListener("click", () => {
-    audio.play();
-    const hint = document.querySelector(".hint");
-    if (hint) hint.style.display = "none";
-  });
-</script>
+    const audio = document.getElementById("bg-audio");
+    window.addEventListener('click', () => {
+      if (audio) {
+        audio.play();
+        const hint = document.querySelector('.hint');
+        if (hint) hint.style.display = 'none';
+      }
+    });
+  </script>
 
 </body>
 </html>
