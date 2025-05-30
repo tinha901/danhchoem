@@ -2,103 +2,92 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Yêu Em ❤️</title>
+  <title>Giới Thiệu Bản Thân</title>
   <style>
     body {
       margin: 0;
-      background-color: #000;
+      background-color: black;
       overflow: hidden;
       font-family: 'Arial', sans-serif;
-      cursor: pointer;
     }
 
-    .falling-text {
+    .text-stream {
       position: absolute;
-      top: -50px;
-      color: #ff99cc;
+      top: -100px;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
       font-size: 24px;
       font-weight: bold;
+      color: #ff99cc;
+      text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff99cc, 0 0 15px #ffffff;
+      animation: fall 10s linear infinite;
       user-select: none;
-      animation: fall 6s linear infinite;
-      text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff99cc, 0 0 20px #ffcccc;
     }
 
     @keyframes fall {
       0% {
-        top: -50px;
+        top: -100px;
         opacity: 0;
-        transform: scale(1);
       }
-      50% {
+      10% {
         opacity: 1;
-        transform: scale(1.2);
       }
       100% {
         top: 100%;
         opacity: 0;
-        transform: scale(1);
       }
-    }
-
-    .hint {
-      position: fixed;
-      top: 50%;
-      width: 100%;
-      text-align: center;
-      color: white;
-      font-size: 18px;
-      opacity: 0.6;
     }
 
     audio {
       display: none;
     }
+
+    .hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 18px;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
+  <div class="hint">🌸 Chạm màn hình để phát nhạc 🌸</div>
 
-  <div class="hint">🌸 Chạm vào màn hình để bắt đầu nhạc 🌸</div>
-
-  <!-- Nhạc nền -->
-  <audio id="bg-audio" autoplay loop>
-    <source src="snaptik.vn_0e2b7.mp3" type="audio/mpeg" />
-    Trình duyệt không hỗ trợ âm thanh.
+  <audio id="bg-music" autoplay loop>
+    <source src="snaptik.vn_0e2b7.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ âm thanh.
   </audio>
 
   <script>
     const words = [
-      "Yêu em", "💖", "Tôi yêu em", "❤️", "Nhớ em", "Mãi mãi", 
-      "Anh sẽ luôn bên em", "Không ai bằng em", "Anh chỉ cần em", 
-      "Em là tất cả", "Em là mặt trời của anh", "Mỗi ngày đều vì em", 
-      "Bình yên là có em", "Anh không thể thiếu em", "Em là định mệnh của anh", 
-      "Mỗi nhịp tim là vì em", "Tình yêu này là thật", "Mãi yêu em", 
-      "Bên em là hạnh phúc", "Chỉ yêu một mình em", "Anh nhớ em nhiều lắm", 
-      "Anh yêu em từ tận trái tim", "Em là người duy nhất"
+      "Tôi yêu em", "Anh yêu em", "Mãi bên em", "💖", "❤️", "Tình yêu", "Không rời xa",
+      "Luôn vì em", "Yêu mãi mãi", "Vì em", "Em là duy nhất", "Anh nhớ em", "Yêu nhiều lắm"
     ];
 
-    function createFallingText() {
-      const text = document.createElement("div");
-      text.classList.add("falling-text");
-      text.innerText = words[Math.floor(Math.random() * words.length)];
-      text.style.left = Math.random() * 100 + "vw";
-      text.style.animationDuration = (Math.random() * 2 + 4) + "s";
-      document.body.appendChild(text);
-      setTimeout(() => text.remove(), 7000);
+    function createTextStream() {
+      const el = document.createElement("div");
+      el.className = "text-stream";
+      el.style.left = Math.random() * window.innerWidth + "px";
+      el.style.animationDuration = (Math.random() * 4 + 6) + "s";
+      el.textContent = words[Math.floor(Math.random() * words.length)];
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 12000);
     }
 
-    setInterval(createFallingText, 200);
+    setInterval(createTextStream, 200);
 
-    const audio = document.getElementById("bg-audio");
+    const audio = document.getElementById("bg-music");
     window.addEventListener('click', () => {
-      if (audio) {
-        audio.play();
-        const hint = document.querySelector('.hint');
-        if (hint) hint.style.display = 'none';
-      }
+      audio.play();
+      const hint = document.querySelector('.hint');
+      if (hint) hint.style.display = 'none';
     });
   </script>
-
 </body>
 </html>
+
 
 
